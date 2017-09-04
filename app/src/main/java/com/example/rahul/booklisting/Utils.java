@@ -172,7 +172,6 @@ public final class Utils {
             else
                 authorsList = authorsList + "," + array.getString(i);
         }
-
         return authorsList;
     }
 }
