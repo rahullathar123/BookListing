@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">BookListing</string>
+    <string name="edit_hint">Topic for which book you want</string>
+    <string name="no">Sorry,Couldn\t find anything</string>
+    <string name="titles">The title</string>
+    <string name="authors">The author</string>
+
+</resources>
