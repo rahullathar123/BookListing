@@ -37,11 +37,11 @@ public class MainActivity extends AppCompatActivity {
         findButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            // hiding the soft keyboard
+                // hiding the soft keyboard
                 View v = getCurrentFocus();
                 // Check if no view has focus:
                 if (view != null) {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
                 adapter.clear();
@@ -65,9 +65,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new BookAdapter(this);
         bookListView.setAdapter(adapter);
 
-
     }
-
     public boolean isNetworkConnected() { //check network connection
         ConnectivityManager cManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = cManager.getActiveNetworkInfo();
@@ -95,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
         protected List<Book> doInBackground(Void... voids) {
             List<Book> result = Utils.fetchBook(getText());
             return result;
-
         }
 
         @Override
