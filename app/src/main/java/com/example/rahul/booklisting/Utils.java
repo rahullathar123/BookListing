@@ -2,9 +2,11 @@ package com.example.rahul.booklisting;
 
 import android.text.TextUtils;
 import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -58,6 +60,7 @@ public final class Utils {
     }
 
     private static String makeHttpRequest(URL url) throws IOException {
+        int timeout = 15000;
         String jsonResponse = "";
         if (url == null) {
             return jsonResponse;
@@ -68,8 +71,8 @@ public final class Utils {
 
         try {
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setReadTimeout(10000);
-            urlConnection.setConnectTimeout(15000);
+            urlConnection.setReadTimeout(timeout);
+            urlConnection.setConnectTimeout(timeout);
             urlConnection.setRequestMethod("GET");
 
             urlConnection.connect();
@@ -139,11 +142,16 @@ public final class Utils {
                 JSONObject currentBook = itemsArray.getJSONObject(i);
                 JSONObject volumeBook = currentBook.getJSONObject("volumeInfo");
                 String bookTitle = volumeBook.getString("title");
-                JSONArray authorArray = volumeBook.getJSONArray("authors");
+
+                JSONArray authorArray = null;
+                try {
+                    authorArray = volumeBook.getJSONArray("authors");
+                } catch (JSONException ignored) {
+
+                }
                 String authors = extractAuthors(authorArray);
                 Book books = new Book(bookTitle, authors);
                 bookList.add(books);
-
             }
 
         } catch (JSONException e) {
@@ -152,7 +160,6 @@ public final class Utils {
             // with the message from the exception.
             Log.e("Utils", "Problem parsing the book JSON results", e);
         }
-
 
         // Return the list of earthquakes
         return bookList;

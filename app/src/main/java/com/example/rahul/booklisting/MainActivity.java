@@ -13,27 +13,30 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
     Button findButton;
-    TextView notFound;
-    EditText textEntered;
-    ProgressBar mLoader;
     BookAdapter adapter;
+
+    @BindView(R.id.progress_bar)
+    ProgressBar mLoader;
+    @BindView(R.id.enter_text)
+    EditText textEntered;
+    @BindView(R.id.no_book_found)
+    TextView notFound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mLoader = (ProgressBar) findViewById(R.id.progress_bar);
-        textEntered = (EditText) findViewById(R.id.enter_text);
-        notFound = (TextView) findViewById(R.id.no_book_found);
+        ButterKnife.bind(this);
         findButton = (Button) findViewById(R.id.search_button);
-
-
         findButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         bookListView.setAdapter(adapter);
 
     }
+
     public boolean isNetworkConnected() { //check network connection
         ConnectivityManager cManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = cManager.getActiveNetworkInfo();
